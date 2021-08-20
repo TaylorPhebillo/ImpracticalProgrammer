@@ -1,2 +1,15 @@
-<H1>C++ is getting rid of it's garbage collector in 2023</H1>
+<H1>C++ is getting rid of the garbage collector in 2023</H1>
 
+BTW, the Microsoft STL is open source
+http://open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2186r2.html
+
+Apparently the idea was that in C++11, a compiler could add a system to follow every possible pointer to see what memory is still reachable and what isn't, and clean up the stuff that isn't reachable. The standard said that compilers could, but didn't have to- but all valid, portable C++ had to use these functions like "declare_reachable" if it used pointers with anything but new/delete to tell the compiler *not* to garbage collect its memory.
+
+http://www.cplusplus.com/reference/memory/
+
+I guess literally every compiler decided that was hard, and decided to just make all the reachability functions no-ops and forget about it.
+
+Honestly, it was probably a good idea at the time, but C++11 also added std::unique_ptr and std::shared_ptr, which were unexpectedly awesome and easy to work with, and the memory tracking issues in C++ just became less of a problem, and not worth adding this heavy-weight, compiler specific solution to.
+
+http://open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2186r2.html
+https://github.com/microsoft/STL/issues/1988
